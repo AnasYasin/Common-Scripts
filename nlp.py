@@ -107,3 +107,11 @@ def clean_text(text):
  
 df["clean_text"] = df["text"].apply(lambda x: clean_text(x))
    
+
+    #Downsampling from dF
+    df_pos = df[df['is_neg'] == 0] 
+    df_neg = df[df['is_neg'] == 1] 
+    df_pos = df_pos.sample(n=201304, random_state=1)
+    df = pd.concat([df_neg, df_pos])
+    df.reset_index(drop=True, inplace=True)
+    
